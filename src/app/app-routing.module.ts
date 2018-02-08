@@ -1,11 +1,22 @@
-import {HomeComponent} from './components/home/home.component';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {MainMenuComponent} from "./main-menu/main-menu.component";
+import {BluetoothComponent} from "./bluetooth/bluetooth.component";
+import {BluetoothScanComponent} from "./bluetooth/bluetooth-scan/bluetooth-scan.component";
+
 
 const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
+        component: MainMenuComponent
+    },
+    {
+        path: 'bluetooth',
+        component: BluetoothComponent,
+        children: [{
+            path: 'scan',
+            component: BluetoothScanComponent
+        }]
     }
 ];
 

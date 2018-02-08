@@ -1,0 +1,35 @@
+.grid {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+    align-items: center;
+
+    height: 100%;
+
+    .row {
+        display: flex;
+        flex-direction: row;
+
+        .grid-element {
+            height: 250px;
+            width: 250px;
+
+            margin: 4px 8px 8px 8px;
+            padding: 16px;
+
+            background-color: #444;
+            font-size: 24pt;
+
+            box-sizing: border-box;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+:host-context(body[data-theme=day]) .grid .row .grid-element {
+    background-color: #ddd;
+}

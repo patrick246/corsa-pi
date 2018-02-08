@@ -12,10 +12,14 @@ import {AppRoutingModule} from './app-routing.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
-import {ElectronService} from './providers/electron.service';
+import {ElectronService} from './electron/electron.service';
 
 import {AppComponent} from './app.component';
-import {HomeComponent} from './components/home/home.component';
+import {HomeComponent} from './home/home.component';
+import {MainMenuComponent} from './main-menu/main-menu.component';
+import {BluetoothComponent} from './bluetooth/bluetooth.component';
+import {BluetoothScanComponent} from './bluetooth/bluetooth-scan/bluetooth-scan.component';
+import {BluetoothService} from "./bluetooth/service/bluetooth.service";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -25,7 +29,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent
+        HomeComponent,
+        MainMenuComponent,
+        BluetoothComponent,
+        BluetoothScanComponent
     ],
     imports: [
         BrowserModule,
@@ -40,7 +47,10 @@ export function HttpLoaderFactory(http: HttpClient) {
             }
         })
     ],
-    providers: [ElectronService],
+    providers: [
+        ElectronService,
+        BluetoothService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

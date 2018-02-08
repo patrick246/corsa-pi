@@ -1,0 +1,21 @@
+.bt-list {
+    margin: 16px;
+
+    .bt-client {
+        padding: 16px;
+
+        border: 1px solid #eeeeee;
+        border-bottom: none;
+
+        &:first-of-type {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        &:last-of-type {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom: 1px solid #eeeeee;
+        }
+    }
+}

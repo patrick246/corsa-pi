@@ -525,6 +525,10 @@ module.exports = {
 			{
 				"test": /\.ts$/,
 				"use": "@ngtools/webpack"
+			},
+			{
+				"test": /\.node$/,
+				"use": "node-loader"
 			}
 		]
 	},

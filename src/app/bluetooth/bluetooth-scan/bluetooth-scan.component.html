@@ -1,0 +1,21 @@
+<div>
+    <ng-container *ngIf="discovering else notDiscovering">
+        <button type="button" (click)="stopDiscovering()">Stop scanning</button>
+    </ng-container>
+    <ng-template #notDiscovering>
+        <button type="button" (click)="startDiscovering()">Start scanning</button>
+    </ng-template>
+</div>
+<h1>Paired</h1>
+<div class="bt-list">
+    <div *ngFor="let device of paired" class="bt-client">
+        {{device.Alias}}
+    </div>
+</div>
+
+<h1>Discovered</h1>
+<div class="bt-list">
+    <div *ngFor="let device of devices" class="bt-client">
+        {{device.Alias}}
+    </div>
+</div>
