@@ -44,17 +44,17 @@ declare module "bluez" {
     type Capabilities = "DisplayOnly" | "DisplayYesNo" | "KeyboardOnly" | "NoInputNoOutput" | "KeyboardDisplay";
     export class Bluez extends EventEmitter {
         constructor(options?: any);
-        async init();
-        async getAdapter(dev: string): Promise<Adapter>;
-        async getDevice(address: string): Promise<Device>;
+        public init();
+        public getAdapter(dev: string): Promise<Adapter>;
+        public getDevice(address: string): Promise<Device>;
         public registerProfile(profile: string, options: any): Promise<void>;
         public registerSerialProfile(listener: any, mode: string, options: any): Promise<void>;
         public registerAgent(agent: Agent, capabilities: Capabilities): Promise<void>;
         public registerDefaultAgent(): Promise<void>;
         public getUserService(): any;
         public getUserServiceObject(): any;
-        async onInterfacesAdded(path: string, interfaces: {[key: string]: any}): void;
-        async onInterfaceRemoved(path: string, props: string[]): void;
+        public onInterfacesAdded(path: string, interfaces: {[key: string]: any}): void;
+        public onInterfaceRemoved(path: string, props: string[]): void;
 
     }
 

@@ -38,9 +38,7 @@
 		"postinstall": "electron-rebuild"
 	},
 	"dependencies": {
-		"bluez": "WaeCo/node-bluez",
-		"dbus": "^1.0.2",
-		"roboto-fontface": "^0.8.0"
+		"bluez": "WaeCo/node-bluez"
 	},
 	"devDependencies": {
 		"@angular/cli": "^1.6.8",
@@ -115,7 +113,8 @@
 		"webpack": "3.8.1",
 		"webpack-concat-plugin": "1.4.0",
 		"webpack-dev-server": "2.9.3",
-		"zone.js": "0.8.17"
+		"zone.js": "0.8.17",
+		"roboto-fontface": "^0.8.0"
 	},
 	"license": "SEE LICENSE IN LICENSE.md"
 }
