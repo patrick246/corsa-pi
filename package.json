@@ -1,18 +1,23 @@
 {
-	"name": "angular-electron",
-	"version": "2.6.0",
-	"description": "Angular 5 with Electron (Typescript + SASS + Hot Reload)",
-	"homepage": "https://github.com/maximegris/angular-electron",
+	"name": "corsa-pi",
+	"version": "0.0.2",
+	"description": "Corsa D car entertainment system",
+	"homepage": "https://github.com/patrick246/corsa-pi",
 	"author": {
-		"name": "Maxime GRIS",
-		"email": "maxime.gris@gmail.com"
+		"name": "Patrick Hahn",
+		"email": "patricksilashahn@gmx.net"
 	},
 	"keywords": [
 		"angular",
 		"angular 5",
 		"electron",
 		"typescript",
-		"sass"
+		"sass",
+		"bluez",
+		"bluetooth",
+		"car entertainment system",
+		"corsa d",
+		"corsa"
 	],
 	"main": "main.js",
 	"private": true,
@@ -52,6 +57,7 @@
 		"@angular/platform-browser": "5.2.0",
 		"@angular/platform-browser-dynamic": "5.2.0",
 		"@angular/router": "5.2.0",
+		"@ng-bootstrap/ng-bootstrap": "^1.0.0",
 		"@ngx-translate/core": "9.0.1",
 		"@ngx-translate/http-loader": "2.0.0",
 		"@types/core-js": "0.9.36",
@@ -59,6 +65,7 @@
 		"@types/jasminewd2": "2.0.2",
 		"@types/node": "7.0.7",
 		"autoprefixer": "7.1.4",
+		"bootstrap": "^4.0.0",
 		"circular-dependency-plugin": "3.0.0",
 		"codelyzer": "3.2.0",
 		"copy-webpack-plugin": "4.1.1",
@@ -98,6 +105,7 @@
 		"postcss-url": "7.1.2",
 		"protractor": "5.1.2",
 		"raw-loader": "0.5.1",
+		"roboto-fontface": "^0.8.0",
 		"rxjs": "5.5.2",
 		"sass-loader": "6.0.6",
 		"script-loader": "0.7.1",
@@ -113,8 +121,7 @@
 		"webpack": "3.8.1",
 		"webpack-concat-plugin": "1.4.0",
 		"webpack-dev-server": "2.9.3",
-		"zone.js": "0.8.17",
-		"roboto-fontface": "^0.8.0"
+		"zone.js": "0.8.17"
 	},
-	"license": "SEE LICENSE IN LICENSE.md"
+	"license": "MIT"
 }

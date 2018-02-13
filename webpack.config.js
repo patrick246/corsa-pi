@@ -63,8 +63,9 @@ const isProd = (process.env.NODE_ENV === 'production');
 
 //add all external css to be added in our index.html--> like as if it's .angular-cli.json
 const styles = [
-	"./src/styles.scss",
-	"./node_modules/roboto-fontface/css/roboto/roboto-fontface.css"
+	"./node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
+	"./node_modules/bootstrap/dist/css/bootstrap.min.css",
+	"./src/styles.scss"
 ];
 
 //we add all our external scripts we want to load externally, like inserting in our index.html --> like as if it's .angular-cli.json

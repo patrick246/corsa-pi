@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {MainMenuComponent} from "./main-menu/main-menu.component";
 import {BluetoothComponent} from "./bluetooth/bluetooth.component";
 import {BluetoothScanComponent} from "./bluetooth/bluetooth-scan/bluetooth-scan.component";
+import {BluetoothPlayerComponent} from "./bluetooth/bluetooth-player/bluetooth-player.component";
 
 
 const routes: Routes = [
@@ -16,6 +17,9 @@ const routes: Routes = [
         children: [{
             path: 'scan',
             component: BluetoothScanComponent
+        }, {
+            path: 'play',
+            component: BluetoothPlayerComponent
         }]
     }
 ];

@@ -1,21 +1,18 @@
-.bt-list {
-    margin: 16px;
+#btprogress {
+    height: 2px;
+    .progress-bar {
+        position: relative;
+        animation: indefinite-progress-bar 3s infinite linear normal;
+        width: 25%;
+    }
+}
 
-    .bt-client {
-        padding: 16px;
+@keyframes indefinite-progress-bar {
+    from {
+        left: -25%;
 
-        border: 1px solid #eeeeee;
-        border-bottom: none;
-
-        &:first-of-type {
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-        }
-
-        &:last-of-type {
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            border-bottom: 1px solid #eeeeee;
-        }
+    }
+    to {
+        left: 100%;
     }
 }

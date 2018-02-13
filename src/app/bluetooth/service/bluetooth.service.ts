@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Bluez} from "bluez";
+import {Adapter, Agent, Bluez} from "bluez";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
-export interface Device {
+export interface DeviceProps {
     Address: string;
     AddressType: string;
     Name?: string;
@@ -24,11 +25,11 @@ export interface Device {
 export class BluetoothService {
 
     private bt = new Bluez();
-    private deviceArray: any[] = [];
-    private pairedArray: any[] = [];
-    private devices: Subject<Device[]> = new Subject();
-    private paired: Subject<any[]> = new Subject<any[]>();
-    private adapter: any = null;
+    private deviceArray: DeviceProps[] = [];
+    private pairedArray: DeviceProps[] = [];
+    private devices: Subject<DeviceProps[]> = new BehaviorSubject([]);
+    private paired: Subject<DeviceProps[]> = new BehaviorSubject<DeviceProps[]>([]);
+    private adapter: Adapter = null;
     private shouldUpdate: boolean = false;
 
     constructor() {
@@ -36,25 +37,24 @@ export class BluetoothService {
     }
 
     private async getAdapter() {
-        if(this.adapter == null) {
+        if(this.adapter === null) {
             await this.init();
         }
         return this.adapter;
     }
 
     private async init() {
+        console.log('Initializing bluetooth library');
         await this.bt.init();
         this.adapter = await this.bt.getAdapter('hci0');
-        await this.startDiscovering();
     }
 
     private async updateDevices() {
-        console.log('Updating devices');
         let devices: any[] = await Promise.all(this.deviceArray.map(device => alwaysResolve(this.bt.getDevice(device.Address))));
         this.deviceArray = await Promise.all(devices.filter(device => device != null).map(device => device.getProperties()));
         this.devices.next(this.deviceArray);
         if(this.shouldUpdate)
-            setTimeout(this.updateDevices.bind(this), 1000);
+            setTimeout(this.updateDevices.bind(this), 2000);
     }
 
     private async onDeviceDetected(address, props) {
@@ -82,13 +82,29 @@ export class BluetoothService {
     public async startDiscovering() {
         this.shouldUpdate = true;
         await (await this.getAdapter()).StartDiscovery();
-        this.updateDevices();
+        await this.updateDevices();
     }
 
     public async stopDiscovering() {
         this.shouldUpdate = false;
         return await (await this.getAdapter()).StopDiscovery();
     }
+
+
+    public async removeDevice(address: string) {
+        const adapter = await this.getAdapter();
+        address = address
+            .replace(':', '_')
+            .replace('-', '_')
+            .toUpperCase();
+
+        await adapter.RemoveDevice(`/org/bluez/hci0/${address}`);
+    }
+
+    public async registerAgent(agent: Agent) {
+        await this.bt.registerAgent(agent, "DisplayYesNo");
+    }
+
 }
 
 function alwaysResolve<T>(promise: Promise<T>): Promise<T | null> {

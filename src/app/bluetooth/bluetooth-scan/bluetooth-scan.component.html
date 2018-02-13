@@ -1,21 +1,25 @@
-<div>
-    <ng-container *ngIf="discovering else notDiscovering">
-        <button type="button" (click)="stopDiscovering()">Stop scanning</button>
-    </ng-container>
-    <ng-template #notDiscovering>
-        <button type="button" (click)="startDiscovering()">Start scanning</button>
-    </ng-template>
-</div>
-<h1>Paired</h1>
-<div class="bt-list">
-    <div *ngFor="let device of paired" class="bt-client">
-        {{device.Alias}}
+<div class="container-fluid">
+    <h1>Bluetooth Scan</h1>
+    <div class="mb-4 alert alert-light p-0">
+        <div class="progress my-1" id="btprogress" style="height: 2px;">
+            <div class="progress-bar bg-primary"></div>
+        </div>
+        <span class="text-muted">
+            Searching while on this screen
+        </span>
     </div>
-</div>
 
-<h1>Discovered</h1>
-<div class="bt-list">
-    <div *ngFor="let device of devices" class="bt-client">
-        {{device.Alias}}
+    <h2>Paired</h2>
+    <div class="list-group list-group-flush mb-4">
+        <div *ngFor="let device of paired" class="list-group-item flex-column align-items-start">
+            <app-bluetooth-device [device]="device"></app-bluetooth-device>
+        </div>
+    </div>
+
+    <h2>Discovered</h2>
+    <div class="list-group list-group-flush">
+        <div *ngFor="let device of devices" class="list-group-item flex-column align-items-start">
+            <app-bluetooth-device [device]="device"></app-bluetooth-device>
+        </div>
     </div>
 </div>

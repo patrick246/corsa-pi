@@ -20,6 +20,9 @@ import {MainMenuComponent} from './main-menu/main-menu.component';
 import {BluetoothComponent} from './bluetooth/bluetooth.component';
 import {BluetoothScanComponent} from './bluetooth/bluetooth-scan/bluetooth-scan.component';
 import {BluetoothService} from "./bluetooth/service/bluetooth.service";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { BluetoothDeviceComponent } from './bluetooth/bluetooth-scan/bluetooth-device/bluetooth-device.component';
+import { BluetoothPlayerComponent } from './bluetooth/bluetooth-player/bluetooth-player.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -32,7 +35,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         HomeComponent,
         MainMenuComponent,
         BluetoothComponent,
-        BluetoothScanComponent
+        BluetoothScanComponent,
+        BluetoothDeviceComponent,
+        BluetoothPlayerComponent
     ],
     imports: [
         BrowserModule,
@@ -45,7 +50,8 @@ export function HttpLoaderFactory(http: HttpClient) {
                 useFactory: (HttpLoaderFactory),
                 deps: [HttpClient]
             }
-        })
+        }),
+        NgbModule.forRoot()
     ],
     providers: [
         ElectronService,

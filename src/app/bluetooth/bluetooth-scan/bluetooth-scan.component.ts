@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {BluetoothService, Device} from "../service/bluetooth.service";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {BluetoothService, DeviceProps} from "../service/bluetooth.service";
 import {Agent, Bluez} from "bluez";
 
 class CPAgent extends Agent {
@@ -9,11 +9,11 @@ class CPAgent extends Agent {
 
     RequestPinCode(device, callback) {
         let alphanum = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        let pinNumber = "";
+        let pin = "";
         for(let i = 0; i < 6; i++) {
-            pinNumber += alphanum[Math.floor(Math.random() * alphanum.length)];
+            pin += alphanum[Math.floor(Math.random() * alphanum.length)];
         }
-        callback(null, pinNumber);
+        callback(null, pin);
     }
 
     DisplayPinCode(device, pincode, callback) {
@@ -21,7 +21,11 @@ class CPAgent extends Agent {
     }
 
     RequestPasskey(device, callback) {
-        callback(null, 1234);
+        let pin = "";
+        for(let i = 0; i < 4; i++) {
+            pin += Math.floor(Math.random() * 10);
+        }
+        callback(null, pin);
     }
 
     DisplayPasskey(device, passkey, entered, callback) {
@@ -50,7 +54,7 @@ class CPAgent extends Agent {
     templateUrl: './bluetooth-scan.component.html',
     styleUrls: ['./bluetooth-scan.component.scss']
 })
-export class BluetoothScanComponent implements OnInit {
+export class BluetoothScanComponent implements OnInit, OnDestroy {
 
     public devices: any[] = [];
     public paired: any[] = [];
@@ -59,21 +63,21 @@ export class BluetoothScanComponent implements OnInit {
     constructor(private bt: BluetoothService) {
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.bt.getDevices().subscribe(devices => {
             this.devices = devices;
-            console.log(this.devices);
+            console.log('Devices', this.devices);
         });
         this.bt.getPaired().subscribe(devices => {
             this.paired = devices;
-            console.log(this.paired);
+            console.log('Paired', this.paired);
         });
-        this.updateDiscovering();
+        await this.startDiscovering();
     }
 
-    async updateDiscovering() {
-        this.discovering = await this.bt.isDiscovering();
-        setTimeout(this.updateDiscovering.bind(this), 500);
+
+    async ngOnDestroy() {
+        await this.stopDiscovering();
     }
 
     async startDiscovering() {
