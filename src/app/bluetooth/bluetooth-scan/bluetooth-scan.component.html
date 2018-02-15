@@ -12,14 +12,15 @@
     <h2>Paired</h2>
     <div class="list-group list-group-flush mb-4">
         <div *ngFor="let device of paired" class="list-group-item flex-column align-items-start">
-            <app-bluetooth-device [device]="device"></app-bluetooth-device>
+            <app-bluetooth-device [device]="device" (onConnect)="connect(device)"
+                                  (onDisconnect)="disconnect(device)"></app-bluetooth-device>
         </div>
     </div>
 
     <h2>Discovered</h2>
     <div class="list-group list-group-flush">
         <div *ngFor="let device of devices" class="list-group-item flex-column align-items-start">
-            <app-bluetooth-device [device]="device"></app-bluetooth-device>
+            <app-bluetooth-device [device]="device" (onPair)="pair(device)"></app-bluetooth-device>
         </div>
     </div>
 </div>
