@@ -1,3 +1,29 @@
-<p>
-  bluetooth-player works!
-</p>
+<div class="container-fluid h-100">
+    <div class="row p-4">
+        <div class="col-12">
+            <h1 class="display-4 text-center">{{state.Track.Title}}</h1>
+            <p class="text-muted lead text-center">{{state.Track.Artist}} &bull; {{state.Track.Album}}</p>
+        </div>
+    </div>
+    <div class="row p-4">
+        <div class="col-12">
+            <div>
+                <ngb-progressbar type="info" [value]="state.Position / state.Track.Duration * 100"></ngb-progressbar>
+            </div>
+        </div>
+    </div>
+    <div class="row h-50 p-4">
+        <div class="col-4 d-flex align-items-stretch">
+            <button class="btn btn-lg btn-block btn-light" type="button" (click)="prev()">Prev</button>
+        </div>
+        <div class="col-4 d-flex align-items-stretch">
+            <button class="btn btn-lg btn-block btn-light" type="button" (click)="togglePlayPause()">
+                <ng-container *ngIf="state.Status !== 'playing'">Play</ng-container>
+                <ng-container *ngIf="state.Status === 'playing'">Pause</ng-container>
+            </button>
+        </div>
+        <div class="col-4 d-flex align-items-stretch">
+            <button class="btn btn-lg btn-block btn-light" type="button" (click)="next()">Next</button>
+        </div>
+    </div>
+</div>

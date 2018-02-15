@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Observable";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {DeviceProps} from "./DeviceProps";
 import {CPAgent} from "./CPAgent";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 
 
@@ -20,7 +21,7 @@ export class BluetoothService {
     private shouldUpdate: boolean = false;
     private connectedDevice: Device = null;
 
-    constructor() {
+    constructor(private modalService: NgbModal) {
         this.bt.on('device', this.onDeviceDetected.bind(this));
     }
 
@@ -36,7 +37,7 @@ export class BluetoothService {
         this.initCalled = true;
         await this.bt.init();
         this.adapter = await this.bt.getAdapter('hci0');
-        await this.registerAgent(new CPAgent(this.bt));
+        await this.registerAgent(new CPAgent(this.bt, this.modalService));
     }
 
     private async updateDevices() {
@@ -45,6 +46,12 @@ export class BluetoothService {
         this.devices.next(this.deviceArray);
         this.pairedArray = this.deviceArray.filter(device => device.Paired);
         this.paired.next(this.pairedArray);
+
+        const connected = this.deviceArray.filter(device => device.Connected);
+        if(connected.length === 1) {
+            this.connectedDevice = await this.bt.getDevice(connected[0].Address);
+        }
+
         if(this.shouldUpdate)
             setTimeout(this.updateDevices.bind(this), 2000);
     }
@@ -123,9 +130,9 @@ export class BluetoothService {
         }
     }
 
-    private static sanitizeAddress(address: string): string {
-        return address.replace(':', '_')
-            .replace('-', '_')
+    public static sanitizeAddress(address: string): string {
+        return address.replace(/:/g, '_')
+            .replace(/-/g, '_')
             .toUpperCase();
     }
 
@@ -133,6 +140,23 @@ export class BluetoothService {
         await this.bt.registerAgent(agent, "DisplayYesNo");
     }
 
+    public async getDevice(address: string): Promise<DeviceProps> {
+        address = BluetoothService.sanitizeAddress(address);
+        const device: Device = await this.bt.getDevice(address);
+        return await device.getProperties();
+    }
+
+    public getNative(): Bluez {
+        return this.bt;
+    }
+
+    public isConnected(): boolean {
+        return this.connectedDevice !== null;
+    }
+
+    public getConnected(): Device {
+        return this.connectedDevice;
+    }
 }
 
 function alwaysResolve<T>(promise: Promise<T>): Promise<T | null> {

@@ -5,13 +5,14 @@
     </button>
 </div>
 <div class="modal-body">
-
+    <p>Do you want to pair with {{device}}?</p>
+    <p>Passkey: {{passkey}}</p>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary">
+    <button type="button" class="btn btn-lg btn-primary" (click)="activeModal.close()">
         Pair
     </button>
-    <button type="button" class="btn btn-secondary">
+    <button type="button" class="btn btn-lg btn-secondary" (click)="activeModal.dismiss()">
         Cancel
     </button>
 </div>

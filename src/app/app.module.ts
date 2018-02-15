@@ -24,6 +24,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { BluetoothDeviceComponent } from './bluetooth/bluetooth-scan/bluetooth-device/bluetooth-device.component';
 import { BluetoothPlayerComponent } from './bluetooth/bluetooth-player/bluetooth-player.component';
 import { BluetoothPairModalComponent } from './bluetooth/bluetooth-scan/bluetooth-pair-modal/bluetooth-pair-modal.component';
+import {IsConnectedGuard} from "./bluetooth/bluetooth-player/guard/is-connected.guard";
+import {BluetoothMediaService} from "./bluetooth/media-service/bluetooth-media.service";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -57,7 +59,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     providers: [
         ElectronService,
-        BluetoothService
+        BluetoothService,
+        IsConnectedGuard,
+        BluetoothMediaService
     ],
     bootstrap: [AppComponent],
     entryComponents: [

@@ -96,13 +96,13 @@ declare module "bluez" {
     export class Agent {
         constructor(bluez: Bluez, DbusObject: any);
         public Release(cb: CallbackFunction): void;
-        public RequestPinCode(device: Device, cb: CallbackFunction): void;
-        public DisplayPinCode(device: Device, pincode: string, cb: CallbackFunction): void;
-        public RequestPasskey(device: Device, cb: CallbackFunction): void;
-        public DisplayPasskey(device: Device, passkey: number, entered: number, cb: CallbackFunction): void;
-        public RequestConfirmation(device: Device, passkey: number, cb: CallbackFunction): void;
-        public RequestAuthorization(device: Device, cb: CallbackFunction): void;
-        public AuthorizeService(device: Device, uuid: string, cb: CallbackFunction): void;
+        public RequestPinCode(device: string, cb: CallbackFunction): void;
+        public DisplayPinCode(device: string, pincode: string, cb: CallbackFunction): void;
+        public RequestPasskey(device: string, cb: CallbackFunction): void;
+        public DisplayPasskey(device: string, passkey: number, entered: number, cb: CallbackFunction): void;
+        public RequestConfirmation(device: string, passkey: number, cb: CallbackFunction): void;
+        public RequestAuthorization(device: string, cb: CallbackFunction): void;
+        public AuthorizeService(device: string, uuid: string, cb: CallbackFunction): void;
         public Cancel(cb: CallbackFunction): void;
     }
 }

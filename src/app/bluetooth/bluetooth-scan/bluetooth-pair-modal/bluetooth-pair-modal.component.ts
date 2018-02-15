@@ -1,16 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {DeviceProps} from "../../service/DeviceProps";
 
 @Component({
-  selector: 'app-bluetooth-pair-modal',
-  templateUrl: './bluetooth-pair-modal.component.html',
-  styleUrls: ['./bluetooth-pair-modal.component.scss']
+    selector: 'app-bluetooth-pair-modal',
+    templateUrl: './bluetooth-pair-modal.component.html',
+    styleUrls: ['./bluetooth-pair-modal.component.scss']
 })
-export class BluetoothPairModalComponent implements OnInit {
+export class BluetoothPairModalComponent implements OnInit, OnChanges {
 
-  constructor(public activeModal: NgbActiveModal) { }
+    @Input()
+    public device: string;
 
-  ngOnInit() {
-  }
+    @Input()
+    public passkey: number;
 
+    public deviceProps: DeviceProps;
+
+    constructor(public activeModal: NgbActiveModal) {
+    }
+
+    ngOnInit() {
+    }
+
+
+    async ngOnChanges(changes: SimpleChanges): Promise<void> {
+    }
 }

@@ -4,6 +4,7 @@ import {MainMenuComponent} from "./main-menu/main-menu.component";
 import {BluetoothComponent} from "./bluetooth/bluetooth.component";
 import {BluetoothScanComponent} from "./bluetooth/bluetooth-scan/bluetooth-scan.component";
 import {BluetoothPlayerComponent} from "./bluetooth/bluetooth-player/bluetooth-player.component";
+import {IsConnectedGuard} from "./bluetooth/bluetooth-player/guard/is-connected.guard";
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
             component: BluetoothScanComponent
         }, {
             path: 'play',
-            component: BluetoothPlayerComponent
+            component: BluetoothPlayerComponent,
+            canActivate: [IsConnectedGuard]
         }]
     }
 ];
