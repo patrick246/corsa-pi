@@ -6,7 +6,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {DeviceProps} from "./DeviceProps";
 import {CPAgent} from "./CPAgent";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-
+import {exec} from "child_process";
 
 
 @Injectable()
@@ -119,6 +119,18 @@ export class BluetoothService {
         if(await device.Connected()) {
             this.connectedDevice = device;
         }
+
+        await this.routeAudio();
+    }
+
+    private async routeAudio() {
+        console.log('routing audio');
+        const sink = await execPromise('pactl list sinks short | head -n 1 | cut -f 2');
+        console.log('got audio sink', sink);
+        const address = await this.connectedDevice.Address();
+        const source = address.replace(/:/g, '_');
+
+        await execPromise(`pactl load-module module-loopback source=bluez_source.${source}.a2dp_source sink=${sink}`);
     }
 
     public async disconnect(address: string): Promise<void> {
@@ -163,4 +175,18 @@ function alwaysResolve<T>(promise: Promise<T>): Promise<T | null> {
     return new Promise(resolve => {
         promise.then(resolve).catch(() => resolve(null));
     });
+}
+
+function execPromise(command: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        exec(command, (err, stdout, stderr) => {
+            if(err) {
+                return reject(err);
+            }
+            if(stderr !== "") {
+                return reject(new Error(stderr));
+            }
+            return resolve(stdout);
+        });
+    })
 }
