@@ -40,10 +40,11 @@
 		"test": "karma start ./karma.conf.js",
 		"pree2e": "webdriver-manager update --standalone false --gecko false --quiet && npm run build",
 		"e2e": "protractor ./protractor.conf.js",
-		"postinstall": "electron-rebuild"
+		"postinstall": ""
 	},
 	"dependencies": {
-		"bluez": "WaeCo/node-bluez"
+		"bluez": "patrick246/node-bluez",
+		"util.promisify": "^1.0.0"
 	},
 	"devDependencies": {
 		"@angular/cli": "^1.6.8",
@@ -74,7 +75,7 @@
 		"cross-env": "5.0.5",
 		"css-loader": "0.28.7",
 		"cssnano": "3.10.0",
-		"electron": "1.8.2",
+		"electron": "2.0.0-beta.6",
 		"electron-builder": "19.45.4",
 		"electron-rebuild": "^1.7.3",
 		"electron-reload": "1.2.1",

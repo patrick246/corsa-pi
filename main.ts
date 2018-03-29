@@ -38,6 +38,10 @@ function createWindow() {
         // when you should delete the corresponding element.
         win = null;
     });
+
+    win.webContents.on('crashed', () => {
+        console.log('Renderer process crashed');
+    })
 }
 
 try {
@@ -67,4 +71,5 @@ try {
 } catch (e) {
     // Catch Error
     // throw e;
+    console.log(e);
 }
